@@ -1,0 +1,38 @@
+#creating subsets with 3 values 
+def subsets(arr, out_arr)
+    subset = []
+    subset[0] = arr[0] + arr[1]
+    subset[1] = arr[1] 
+    arr[2..-1].each.with_index(2) do | element, index|
+        subset[index] = element
+        subset[index - 1] += element
+        subset[index - 2] += element
+        out_arr.append(subset[index-2])
+    end
+end
+
+#reading file 
+numbers = []
+
+File.open("input.txt").each do |line|
+    numbers.append(line.to_i) 
+end 
+
+
+#creating actual subest 
+numbers_with_subset = []
+
+subsets(numbers, numbers_with_subset)
+
+
+#counting greater elements
+output = 0 
+
+for i in 1..numbers_with_subset.length()-1
+    if numbers_with_subset[i] > numbers_with_subset[i-1]
+        output += 1
+    end
+end
+
+puts output
+
